@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#main-header {
+    height: 80px;
+    width: 100%;
+    background-color: black;
+
+}
+
+#main-footer {
+    height: 80px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#main-footer small {
+    background-color: darkgoldenrod;
+    display: flex;
+    justify-content: center;
+
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    color: darkgoldenrod;
+    font-size: 18px;
+}
+
+#pc {
+    height: 80px;
+}
+
+#golias {
+    height: 80px;
+}
