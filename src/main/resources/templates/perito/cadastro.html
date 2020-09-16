@@ -2,15 +2,16 @@
 <html
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.w3.org/1999/xhtml"
-        layout:decorate="~{layout/layout}" lang="pt-br">
-
+        xmlns:layout="http://ulraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/Layout}" lang="pt-br">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro_perito.css}"/>
+</head>
 <body>
 <div layout:fragment="content">
 
-    <link rel="stylesheet" type="text/css" th:href="@{css/cadastro_perito.css}"/>
+    <h1> Cadastro de Peritos</h1>
 
-    <h1>Cadastro de Perito</h1>
 </div>
 </body>
 

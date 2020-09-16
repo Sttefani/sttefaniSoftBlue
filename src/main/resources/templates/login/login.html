@@ -2,12 +2,13 @@
 <html
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://www.w3.org/1999/xhtml"
-        layout:decorate="~{layout/layout}" lang="pt-br">
-
+        xmlns:layout="http://ulraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/Layout}" lang="pt-br">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{css/login.css}"/>
+</head>
 <body>
 <div layout:fragment="content">
-    <link rel="stylesheet" type="text/css" th:href="@{css/login.css}"/>
 
     <div>
         <form style="justify-content: center">
