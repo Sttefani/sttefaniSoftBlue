@@ -10,8 +10,26 @@
 <body>
 <div layout:fragment="content">
 
-    <h1> Cadastro de Peritos</h1>
-
+    <div id="mensagemDeSucesso" th:if="${msg != null}">
+        <span th:text="${msg}"></span>
+    </div>
+    <br/>
+    <!--/*@thymesVar id="editMode" type="java"*/-->
+    <form method="post" th:action="${!editMode} ? @{/peritos/save} : @{/peritos/alterar}"
+          th:object="${perito}">
+        <input type="hidden" th:field="*{id}"/>
+        <fieldset>
+            <label for="nome">Nome do Perito:</label><br />
+            <input type="text" id="nome" name="nome" placeholder="Nome" th:field="*{nome}"
+                   th:classappend="${#fields.hasErrors('nome')} ? 'inputError': ''"/><br /><br />
+            <div id="mensagemDeErro" th:if="${#fields.hasErrors('nome')}">
+                <span th:errors="*{nome}"></span>
+            </div>
+            <br/>
+            <!--/*@thymesVar id="editMode" type="java"*/-->
+            <input type="submit" th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
+        </fieldset>
+    </form>
 </div>
 </body>
 

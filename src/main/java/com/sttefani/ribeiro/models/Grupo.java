@@ -1,5 +1,6 @@
 package com.sttefani.ribeiro.models;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Grupo implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 60, unique = true)
+    @NotBlank(message = "O nome do grupo é obrigatório!")
     private String nome;
 
     @ManyToMany

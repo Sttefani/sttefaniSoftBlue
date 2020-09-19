@@ -1,6 +1,9 @@
 package com.sttefani.ribeiro.models;
 
 import com.sttefani.ribeiro.enums.Perfil;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,28 +30,39 @@ public class Usuario implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "O nome não pode ser vazio!")
     private String nome;
 
     @Column(nullable = false, unique = true, length = 50)
+    @NotBlank(message = "O endereço de e-mail é obrigatório!")
+    @Email
     private String email;
 
     @Column(nullable = false, unique = true)
     @CPF
+    @Pattern(regexp = "[0-9]{11}", message = "O CPF possui formato inválido.")
+    @NotBlank(message = "O CPF é obrigatório!")
     private String cpf;
 
     @Column(nullable = false, columnDefinition = "date")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @NotBlank(message = "A data de nascimento é obrigatória!")
     private LocalDate dataNascimento;
 
+    @NotBlank(message = "O telefone de contato é obrigatório!")
+    @Pattern(regexp = "[0-9]{10,11}", message = "O número de telefone possui formato inválido.")
+    @Column(length = 11, nullable = false)
     private String celular;
 
     private String avatar;
 
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Selecione um perfil!")
     private Perfil perfil;
 
     @ManyToOne
     @JoinColumn(name="grupo_id", nullable = false)
+    @NotBlank(message = "Selecione um grupo!")
     private Grupo grupo;
 
     @CreationTimestamp

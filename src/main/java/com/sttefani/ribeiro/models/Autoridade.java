@@ -2,6 +2,7 @@ package com.sttefani.ribeiro.models;
 
 
 import com.sttefani.ribeiro.enums.Cargo;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,8 +26,10 @@ public class Autoridade implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 60, unique = true)
+    @NotBlank(message = "O nome não pode ser vazio!")
     private String nome;
 
+    @NotBlank(message = "Selecione um cargo!")
     @Enumerated(EnumType.STRING)
     private Cargo cargo;
 

@@ -1,5 +1,6 @@
 package com.sttefani.ribeiro.models;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,6 +24,7 @@ public class Setor implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 60)
+    @NotBlank(message = "O nome do setor é obrigatório!")
     private String nome;
 
     @CreationTimestamp

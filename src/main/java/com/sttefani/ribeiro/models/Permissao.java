@@ -1,5 +1,6 @@
 package com.sttefani.ribeiro.models;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Permissao implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "A descrição é obrigatória!")
     private String descricao;
 
     @ManyToMany(mappedBy="permissoes")

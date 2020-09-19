@@ -1,5 +1,6 @@
 package com.sttefani.ribeiro.models;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,13 +24,16 @@ public class EspecieOcorrencia implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 10)
+    @NotBlank(message = "O do número subcódigo é obrigatório!")
     private String subcodigo;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "A descrição da espécie de ocorrência é obrigatória!")
     private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "genero_ocorrencia_id")
+    @NotBlank(message = "O gênero da ocorrência é obrigatório!")
     private GeneroOcorrencia generoOcorrencia;
 
     @CreationTimestamp

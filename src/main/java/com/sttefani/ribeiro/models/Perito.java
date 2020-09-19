@@ -1,6 +1,8 @@
 package com.sttefani.ribeiro.models;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,7 +25,8 @@ public class Perito implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100, unique = true)
+    @NotBlank(message = "O nome não pode estar em branco!")
+    @Size(min = 5, max = 80)
     private String nome;
 
     @CreationTimestamp

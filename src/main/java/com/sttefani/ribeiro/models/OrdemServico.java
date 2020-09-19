@@ -1,5 +1,6 @@
 package com.sttefani.ribeiro.models;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,6 +31,7 @@ public class OrdemServico implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "perito_id", nullable = false)
+    @NotBlank(message = "A seleção de um perito para OS é obrigatória!")
     private Perito perito;
 
     @Column(nullable = false, columnDefinition = "datetime")
@@ -37,9 +39,11 @@ public class OrdemServico implements Serializable {
     private LocalDateTime dataDaOrdemDeServico;
 
     @Column(nullable = false)
+    @NotBlank(message = "O prazo é obrigatório!")
     private Integer prazoEmDias;
 
     @Column(nullable = false, length = 2)
+    @NotBlank(message = "Informação obrigatória!")
     private Integer quantidadeDeReiteracoes;
 
     @Column(nullable = false, columnDefinition = "datetime")

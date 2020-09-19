@@ -1,6 +1,7 @@
 package com.sttefani.ribeiro.embedded;
 
 import com.sttefani.ribeiro.enums.Cidade;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.Enumerated;
 public class Endereco {
 
     @Column(name = "endereco_cep")
+    @Pattern(regexp= "[0-9]{8}", message="O CEP possui formato inválido")
     private String cep;
 
     @Column(name = "endereco_logradouro")

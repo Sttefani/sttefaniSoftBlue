@@ -1,6 +1,7 @@
 package com.sttefani.ribeiro.models;
 
 import com.sttefani.ribeiro.embedded.Endereco;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -24,9 +25,11 @@ public class Unidade implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
+    @NotBlank(message = "O nome da uniadde é obrigatório!")
     private String nome;
 
     @Column(nullable = false, length = 50, unique = true)
+    @NotBlank(message = "O email da unidade é obrigatório!")
     private String email;
 
     @Column(length = 15)

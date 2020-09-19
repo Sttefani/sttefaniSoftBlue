@@ -1,5 +1,6 @@
 package com.sttefani.ribeiro.models;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,9 +24,11 @@ public class GeneroOcorrencia implements Serializable {
     private Long id;
 
     @Column(nullable = false, length = 10)
+    @NotBlank(message = "O do número código é obrigatório!")
     private String codigo;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "A descrição do gênero da ocorrência é obrigatório!")
     private String descricao;
 
     @CreationTimestamp

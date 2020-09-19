@@ -3,6 +3,7 @@ package com.sttefani.ribeiro.models;
 import com.sttefani.ribeiro.embedded.Endereco;
 import com.sttefani.ribeiro.enums.Origem;
 import com.sttefani.ribeiro.enums.Procedimento;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,10 +30,12 @@ public class Ocorrencia implements Serializable {
 
     @Column(nullable = false, columnDefinition = "date")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @NotBlank(message = "A data da ocorrência é obrigatória!")
     private LocalDate dataOcorrencia;
 
     @Column(nullable = false, columnDefinition = "datetime")
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @NotBlank(message = "A data dod registro da ocorrência é obrigatória!")
     private LocalDateTime dataHoraRegistroOcorrencia = LocalDateTime.now();
 
     @Embedded
@@ -40,10 +43,12 @@ public class Ocorrencia implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "especie_id", nullable = false)
+    @NotBlank(message = "Códio da espécie de ocorrência é obrigatório!")
     private EspecieOcorrencia especieOcorrencia;
 
     @ManyToOne
     @JoinColumn(name = "perito_id", nullable = false)
+    @NotBlank(message = "A seleção de um perito para ocorrência é obrigatória!")
     private Perito perito;
 
     @ManyToOne
@@ -64,18 +69,22 @@ public class Ocorrencia implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "autoridade_id", nullable = false)
+    @NotBlank(message = "A seleção de uma autoridade para ocorrência é obrigatória!")
     private Autoridade autoridade;
 
     @ManyToOne
     @JoinColumn(name = "setor_id", nullable = false)
+    @NotBlank(message = "A seleção de um setor para ocorrência é obrigatória!")
     private Setor setor;
 
     @ManyToOne
     @JoinColumn(name = "unidade_id", nullable = false)
+    @NotBlank(message = "A seleção de uma unidade para ocorrência é obrigatória!")
     private Unidade unidade;
 
     @Lob
     @Column(name = "notas_gerais", length = 512, nullable = false)
+    @NotBlank(message = "A descrição da ocorrência é obrigatória!")
     private String notasGerais;
 
     @CreationTimestamp

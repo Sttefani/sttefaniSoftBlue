@@ -1,6 +1,7 @@
 package com.sttefani.ribeiro.models;
 
 import com.sttefani.ribeiro.enums.SituacaoDaOcorrencia;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -38,6 +39,7 @@ public class Historico implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "ocorrencia_id", nullable = false)
+    @NotBlank(message = "O código da  ocorrência a que se refere o histórico é obrigatório!")
     private Ocorrencia ocorrencia;
 
     private String UploadLaudo;
@@ -49,6 +51,7 @@ public class Historico implements Serializable {
 
     @Lob
     @Column(name = "notas_gerais", length = 512, nullable = false)
+    @NotBlank(message = "Descreva algo sobre a movimentação da ocorrência!")
     private String notasGerais;
 
     @CreationTimestamp
