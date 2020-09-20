@@ -6,23 +6,33 @@
 <head>
     <title>Golias</title>
 </head>
+
 <div>
     <div layout:fragment="content">
         <div class="container">
             <div class="aw-layout-content row-cols-lg-1 js-content" layout:fragment="conteudo">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page"><strong>Cadastro de Usuario</strong></li>
+                <nav aria-label="bg-dark">
+                    <ol class="navbar navbar-dark bg-dark">
+                        <li style="color: #FFFFFF" class="breadcrumb-item active" aria-current="page"><strong>Cadastro
+                            de
+                            Usuários</strong></li>
                     </ol>
                 </nav>
-            </div>
 
-            <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
-            <div class="alert alert-success" role="alert" id="mensagemDeSucesso" th:if="${msg != null}">
-                <span th:text="${msg}"></span>
-            </div>
-            <br/>
+                <nav class="breadcrumb">
+                    <a class="btn btn-success my-2 my-sm-0" th:href="@{/usuarios/listar}">Lista de Usuários</a>
+                </nav>
 
+                <hr/>
+            </div>
+        </div>
+        <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+        <div class="alert alert-success" role="alert" id="mensagemDeSucesso" th:if="${msg != null}">
+            <span th:text="${msg}"></span>
+        </div>
+        <br/>
+
+        <div class="container">
             <!-- formulário início -->
             <form method="post" th:action="${!editMode} ? @{/usuarios/save} : @{/usuarios/alterar}"
                   th:object="${usuario}">
@@ -96,10 +106,12 @@
 
                         <!-- CAMPO GRUPO COM AS PERMISSOES -->
                         <div class="col-md-3 mb-2">
-                            <label for="grupo">Grupo</label> <select id="grupo" class="form-control" th:field="*{grupo}">
+                            <label for="grupo">Grupo</label> <select id="grupo" class="form-control"
+                                                                     th:field="*{grupo}">
                             <option value="">Selecione</option>
                             <option th:each="grupo : ${grupos}" th:value="${grupo.id}"
-                                    th:text=${grupo.nome}>Grupo</option>
+                                    th:text=${grupo.nome}>Grupo
+                            </option>
                         </select>
                         </div>
 
@@ -118,15 +130,17 @@
                                 <input type="hidden" name="senha" value="*" th:if="${editMode}"/>
                             </div>
                         </div>
-                        </div>
+                    </div>
 
                     <!-- BOTÃO -->
-                    <input type="submit" class="btn btn-primary btn-sm" th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
+                    <input type="submit" class="btn btn-primary btn-sm"
+                           th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
 
                 </fieldset>
                 </body>
             </form>
         </div>
     </div>
+</div>
 </div>
 </html>

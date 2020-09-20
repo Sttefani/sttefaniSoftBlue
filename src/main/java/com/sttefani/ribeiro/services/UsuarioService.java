@@ -6,6 +6,8 @@ import com.sttefani.ribeiro.models.Usuario;
 import com.sttefani.ribeiro.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
 
@@ -47,4 +49,11 @@ public class UsuarioService {
         return true;
     }
 
+    public List<Usuario> buscarTodos() {
+        return usuarioRepository.findAll();
+    }
+
+    public List<Usuario> findByNomeContainingIgnoreCase(String nome) {
+        return usuarioRepository.findByNomeContainingIgnoreCase(nome);
+    }
 }

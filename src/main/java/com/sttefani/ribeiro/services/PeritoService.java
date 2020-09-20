@@ -5,6 +5,8 @@ import com.sttefani.ribeiro.models.Perito;
 import com.sttefani.ribeiro.repositories.PeritoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PeritoService {
 
@@ -36,5 +38,13 @@ public class PeritoService {
         }
 
         return true;
+    }
+
+    public List<Perito> buscarTodos() {
+       return peritoRepository.findAll();
+    }
+
+    public List<Perito> findByNomeContainingIgnoreCase(String nome) {
+        return peritoRepository.findByNomeIgnoreCase(nome);
     }
 }

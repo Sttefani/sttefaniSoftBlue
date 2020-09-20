@@ -11,22 +11,32 @@
 <div layout:fragment="content">
     <div class="container">
         <div class="aw-layout-content row-cols-lg-1 js-content" layout:fragment="conteudo">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page"><strong>Cadastro de Perito</strong></li>
+            <nav aria-label="bg-dark">
+                <ol class="navbar navbar-dark bg-dark">
+                    <li style="color: #FFFFFF" class="breadcrumb-item active" aria-current="page"><strong>Cadastro de Perito</strong></li>
                 </ol>
             </nav>
         </div>
+        <nav class="breadcrumb">
+            <a class="btn btn-success my-2 my-sm-0" th:href="@{/peritos/listar}">Lista de Peritos</a>
+        </nav>
+
+        <hr/>
+
+        <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
         <div class="alert alert-success" role="alert" id="mensagemDeSucesso" th:if="${msg != null}">
             <span th:text="${msg}"></span>
         </div>
         <br/>
 
+        <!-- FORMULÁRIO -->
         <div class="container">
             <form method="post" th:action="${!editMode} ? @{/peritos/save} : @{/peritos/alterar}"
                   th:object="${perito}">
                 <input type="hidden" th:field="*{id}"/>
                 <fieldset>
+
+                    <!-- CAMPO NOME -->
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="nome">Nome do Perito:</label><br/>
@@ -40,7 +50,10 @@
                         </div>
                     </div>
                         <br/>
-                        <!--/*@thymesVar id="editMode" type="java"*/-->
+
+                    <a th:href="@{/peritos/listar}" class="btn btn-secondary btn-sm">Voltar</a>
+                    <!--BOTAO-->
+                    <!--/*@thymesVar id="editMode" type="java"*/-->
                         <input type="submit" class="btn btn-primary btn-sm" th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
                 </fieldset>
             </form>

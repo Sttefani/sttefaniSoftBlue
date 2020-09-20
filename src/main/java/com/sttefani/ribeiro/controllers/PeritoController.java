@@ -5,7 +5,10 @@ import com.sttefani.ribeiro.models.Perito;
 import com.sttefani.ribeiro.services.PeritoService;
 import org.springframework.stereotype.Controller;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
+
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,5 +46,16 @@ public class PeritoController {
         }
         ControllerHelper.setEditMode(model, false);
         return "perito/cadastro";
+
     }
+    @GetMapping("/listar")
+    public String listar(@PathParam("pesquisa") String pesquisa, ModelMap model) {
+        if (pesquisa == null || pesquisa.isEmpty()) {
+            model.addAttribute("peritos", peritoService.buscarTodos());
+        } else {
+            model.addAttribute("peritos", peritoService.findByNomeContainingIgnoreCase(pesquisa));
+        }
+        return "perito/lista";
+    }
+
 }

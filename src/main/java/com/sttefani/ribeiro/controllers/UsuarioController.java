@@ -8,6 +8,7 @@ import com.sttefani.ribeiro.services.GrupoService;
 import com.sttefani.ribeiro.services.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +55,17 @@ public class UsuarioController {
         ControllerHelper.setEditMode(model, false);
         return "usuario/cadastro";
     }
+    @GetMapping("/listar")
+    public String listar(@PathParam("pesquisa") String pesquisa, ModelMap model) {
+        if (pesquisa == null || pesquisa.isEmpty()) {
+            model.addAttribute("usuarios", usuarioService.buscarTodos());
+        } else {
+            model.addAttribute("usuarios", usuarioService.findByNomeContainingIgnoreCase(pesquisa));
+        }
+        return "usuario/lista";
+    }
 
-    @ModelAttribute("setores")
+    @ModelAttribute("grupos")
     public List<Grupo> listaGrupos() {
         return grupoService.buscarTodos();
     }
