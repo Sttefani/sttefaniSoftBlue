@@ -1,9 +1,10 @@
 package com.sttefani.ribeiro.controllers;
 
+import com.sttefani.ribeiro.exceptions.ValidationException;
 import com.sttefani.ribeiro.models.Perito;
 import com.sttefani.ribeiro.services.PeritoService;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import javax.validation.Valid;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +34,12 @@ public class PeritoController {
         Errors errors, Model model){
 
         if (!errors.hasErrors()){
-            peritoService.savePerito(perito);
-            model.addAttribute("msg", "Perito cadastrado com sucesso!");
+            try {
+                peritoService.savePerito(perito);
+                model.addAttribute("msg", "Perito cadastrado com sucesso!");
+            } catch (ValidationException e) {
+                errors.rejectValue("nome", null, e.getMessage());
+            }
         }
         ControllerHelper.setEditMode(model, false);
         return "perito/cadastro";

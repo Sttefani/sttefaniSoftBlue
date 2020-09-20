@@ -1,9 +1,6 @@
 package com.sttefani.ribeiro.models;
 
-import com.sttefani.ribeiro.enums.Perfil;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import com.sttefani.ribeiro.utils.StringUtils;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,6 +8,10 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,6 +39,11 @@ public class Usuario implements Serializable {
     @Email
     private String email;
 
+    @NotBlank(message = "A senha não pode ser vazia!")
+    @Size(min = 4, max = 8,  message = "A senha deve conter no mínimo 5 e no máximo oito caracteres!")
+    @Column (nullable = false)
+    private String senha;
+
     @Column(nullable = false, unique = true)
     @CPF
     @Pattern(regexp = "[0-9]{11}", message = "O CPF possui formato inválido.")
@@ -53,12 +59,6 @@ public class Usuario implements Serializable {
     @Pattern(regexp = "[0-9]{10,11}", message = "O número de telefone possui formato inválido.")
     @Column(length = 11, nullable = false)
     private String celular;
-
-    private String avatar;
-
-    @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Selecione um perfil!")
-    private Perfil perfil;
 
     @ManyToOne
     @JoinColumn(name="grupo_id", nullable = false)
@@ -104,5 +104,9 @@ public class Usuario implements Serializable {
 
     public void setOrdemServicos(List<OrdemServico> ordemServicos) {
         this.ordemServicos = ordemServicos;
+    }
+
+    public void encryptPassword(){
+        this.senha = StringUtils.encrypt(this.senha);
     }
 }

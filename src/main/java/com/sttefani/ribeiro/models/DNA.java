@@ -3,7 +3,6 @@ package com.sttefani.ribeiro.models;
 import com.sttefani.ribeiro.enums.Sexo;
 import com.sttefani.ribeiro.enums.UnidadeFederativa;
 import com.sttefani.ribeiro.enums.UnidadePrisional;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -11,6 +10,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

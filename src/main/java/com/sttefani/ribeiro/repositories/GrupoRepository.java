@@ -1,12 +1,13 @@
 package com.sttefani.ribeiro.repositories;
 
-import com.sttefani.ribeiro.models.Perito;
+import com.sttefani.ribeiro.models.Grupo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PeritoRepository extends JpaRepository<Perito, Long> {
+import java.util.List;
 
-    public Perito findByNome(String nome);
+@Repository
+public interface GrupoRepository extends JpaRepository<Grupo, Long> {
+
 
 }

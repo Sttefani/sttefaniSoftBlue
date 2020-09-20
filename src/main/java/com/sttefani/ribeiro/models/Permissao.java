@@ -1,9 +1,9 @@
 package com.sttefani.ribeiro.models;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

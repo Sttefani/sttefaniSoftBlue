@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org"
-        xmlns:layout="http://ulraq.net.nz/thymeleaf/layout"
+        xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
         layout:decorate="~{layout/Layout}" lang="pt-br">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/cadastro_perito.css}"/>
+    <title>Golias</title>
 </head>
 <body>
 <div layout:fragment="content">
+    <div class="container">
+        <div class="aw-layout-content row-cols-lg-1 js-content" layout:fragment="conteudo">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page"><strong>Cadastro de Perito</strong></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="alert alert-success" role="alert" id="mensagemDeSucesso" th:if="${msg != null}">
+            <span th:text="${msg}"></span>
+        </div>
+        <br/>
 
-    <div id="mensagemDeSucesso" th:if="${msg != null}">
-        <span th:text="${msg}"></span>
+        <div class="container">
+            <form method="post" th:action="${!editMode} ? @{/peritos/save} : @{/peritos/alterar}"
+                  th:object="${perito}">
+                <input type="hidden" th:field="*{id}"/>
+                <fieldset>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="nome">Nome do Perito:</label><br/>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
+                                   th:field="*{nome}"
+                                   th:classappend="${#fields.hasErrors('nome')} ? 'inputError': ''"/>
+                            <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                 th:if="${#fields.hasErrors('nome')}">
+                                <span th:errors="*{nome}"></span>
+                            </div>
+                        </div>
+                    </div>
+                        <br/>
+                        <!--/*@thymesVar id="editMode" type="java"*/-->
+                        <input type="submit" class="btn btn-primary btn-sm" th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
+                </fieldset>
+            </form>
+        </div>
     </div>
-    <br/>
-    <!--/*@thymesVar id="editMode" type="java"*/-->
-    <form method="post" th:action="${!editMode} ? @{/peritos/save} : @{/peritos/alterar}"
-          th:object="${perito}">
-        <input type="hidden" th:field="*{id}"/>
-        <fieldset>
-            <label for="nome">Nome do Perito:</label><br />
-            <input type="text" id="nome" name="nome" placeholder="Nome" th:field="*{nome}"
-                   th:classappend="${#fields.hasErrors('nome')} ? 'inputError': ''"/><br /><br />
-            <div id="mensagemDeErro" th:if="${#fields.hasErrors('nome')}">
-                <span th:errors="*{nome}"></span>
-            </div>
-            <br/>
-            <!--/*@thymesVar id="editMode" type="java"*/-->
-            <input type="submit" th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
-        </fieldset>
-    </form>
-</div>
 </body>
 
 </html>
+

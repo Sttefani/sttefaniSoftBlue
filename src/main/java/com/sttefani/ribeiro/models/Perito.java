@@ -1,13 +1,13 @@
 package com.sttefani.ribeiro.models;
 
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +26,7 @@ public class Perito implements Serializable {
     private Long id;
 
     @NotBlank(message = "O nome não pode estar em branco!")
-    @Size(min = 5, max = 80)
+    @Length(min = 5, max = 80, message = "A quantidade de caracateres devem ser no mínimo 5 e no máximo 80")
     private String nome;
 
     @CreationTimestamp

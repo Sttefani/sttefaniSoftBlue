@@ -3,13 +3,13 @@ package com.sttefani.ribeiro.models;
 import com.sttefani.ribeiro.embedded.Endereco;
 import com.sttefani.ribeiro.enums.Origem;
 import com.sttefani.ribeiro.enums.Procedimento;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

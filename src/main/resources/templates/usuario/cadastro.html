@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout/Layout}" lang="pt-br">
+<head>
+    <title>Golias</title>
+</head>
+<div>
+    <div layout:fragment="content">
+        <div class="container">
+            <div class="aw-layout-content row-cols-lg-1 js-content" layout:fragment="conteudo">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page"><strong>Cadastro de Usuario</strong></li>
+                    </ol>
+                </nav>
+            </div>
+
+            <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+            <div class="alert alert-success" role="alert" id="mensagemDeSucesso" th:if="${msg != null}">
+                <span th:text="${msg}"></span>
+            </div>
+            <br/>
+
+            <!-- formulário início -->
+            <form method="post" th:action="${!editMode} ? @{/usuarios/save} : @{/usuarios/alterar}"
+                  th:object="${usuario}">
+                <input type="hidden" th:field="*{id}"/>
+                <fieldset>
+                    <!-- CAMPO NOME -->
+                    <div class="form-row">
+                        <div class="col-md-3 mb-2">
+                            <label for="nome">Nome do Usuario:</label><br/>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
+                                   th:field="*{nome}"
+                                   th:classappend="${#fields.hasErrors('nome')} ? 'inputError': ''"/>
+                            <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                 th:if="${#fields.hasErrors('nome')}">
+                                <span th:errors="*{nome}"></span>
+                            </div>
+                        </div>
+
+                        <!-- CAMPO EMAIL -->
+                        <div class="col-md-3 mb-2">
+                            <label for="email">E-mail:</label><br/>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="e-mail"
+                                   th:field="*{email}"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'inputError': ''"/>
+                            <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                 th:if="${#fields.hasErrors('email')}">
+                                <span th:errors="*{email}"></span>
+                            </div>
+                        </div>
+
+                        <!-- CAMPO CPF -->
+                        <div class="col-md-3 mb-2">
+                            <label for="cpf">CPF:</label><br/>
+                            <input type="cpf" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00"
+                                   th:field="*{cpf}"
+                                   th:classappend="${#fields.hasErrors('cpf')} ? 'inputError': ''"
+                                   onkeydown="return isNumberKey(event)"/>
+                            <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                 th:if="${#fields.hasErrors('nome')}">
+                                <span th:errors="*{nome}"></span>
+                            </div>
+                        </div>
+
+                        <!-- CAMPO DATA DE NASCIMENTO -->
+                        <div class="col-md-3 mb-2">
+                            <label for="dataNascimento">Data de Nascimento:</label><br/>
+                            <input type="date" class="form-control" id="dataNascimento" name="dataNascimento"
+                                   placeholder=" / /"
+                                   th:field="*{dataNascimento}"
+                                   th:classappend="${#fields.hasErrors('dataNascimento')} ? 'inputError': ''"
+                                   onkeydown="return isNumberKey(event);"/>
+                            <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                 th:if="${#fields.hasErrors('dataNascimento')}">
+                                <span th:errors="*{dataNascimento}"></span>
+                            </div>
+                        </div>
+
+                        <!-- CAMPO TELEFONE CELULAR -->
+                        <div class="col-md-3 mb-2">
+                            <label for="celular">Celular:</label><br/>
+                            <input type="phone" class="form-control" id="celular" name="celular"
+                                   placeholder="(00) 00000-0000"
+                                   th:field="*{celular}"
+                                   th:classappend="${#fields.hasErrors('celular')} ? 'inputError': ''"
+                                   onkeydown="return isNumberKey(event);"/>
+                            <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                 th:if="${#fields.hasErrors('celular')}">
+                                <span th:errors="*{celular}"></span>
+                            </div>
+                        </div>
+
+                        <!-- CAMPO GRUPO COM AS PERMISSOES -->
+                        <div class="col-md-3 mb-2">
+                            <label for="grupo">Grupo</label> <select id="grupo" class="form-control" th:field="*{grupo}">
+                            <option value="">Selecione</option>
+                            <option th:each="grupo : ${grupos}" th:value="${grupo.id}"
+                                    th:text=${grupo.nome}>Grupo</option>
+                        </select>
+                        </div>
+
+                        <!-- CAMPO SENHA -->
+                        <div class="col-md-3 mb-2">
+                            <div th:if="${!editMode}">
+                                <label for="senha">Senha:</label><br/>
+                                <input type="password" class="form-control" id="senha" name="senha"
+                                       placeholder="senha"
+                                       th:field="*{senha}"
+                                       th:classappend="${#fields.hasErrors('senha')} ? 'inputError': ''"/>
+                                <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                     th:if="${#fields.hasErrors('senha')}">
+                                    <span th:errors="*{senha}"></span>
+                                </div>
+                                <input type="hidden" name="senha" value="*" th:if="${editMode}"/>
+                            </div>
+                        </div>
+                        </div>
+
+                    <!-- BOTÃO -->
+                    <input type="submit" class="btn btn-primary btn-sm" th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
+
+                </fieldset>
+                </body>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
