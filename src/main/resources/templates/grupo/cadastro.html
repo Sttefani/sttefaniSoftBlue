@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout/Layout}" lang="pt-br">
+<head>
+    <title>Golias</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="aw-layout-content row-cols-lg-1 js-content" layout:fragment="conteudo">
+            <nav aria-label="bg-dark">
+                <ol class="navbar navbar-dark bg-dark">
+                    <li style="color: #FFFFFF" class="breadcrumb-item active" aria-current="page"><strong>Cadastro de
+                        Grupo</strong></li>
+                </ol>
+            </nav>
+        </div>
+        <nav class="breadcrumb">
+            <a class="btn btn-success my-2 my-sm-0" th:href="@{/grupos/listar}">Lista de Grupos</a>
+        </nav>
+
+        <hr/>
+
+        <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+        <div class="alert alert-success" role="alert" id="mensagemDeSucesso" th:if="${msg != null}">
+            <span th:text="${msg}"></span>
+        </div>
+        <br/>
+
+        <!-- FORMULÁRIO -->
+        <div class="container">
+            <form method="post" th:action="${!editMode} ? @{/grupos/save} : @{/grupos/alterar}"
+                  th:object="${grupo}">
+                <input type="hidden" th:field="*{id}"/>
+                <fieldset>
+
+                    <!-- CAMPO NOME -->
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="nome">Nome do Grupo:</label><br/>
+                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
+                                   th:field="*{nome}"
+                                   th:classappend="${#fields.hasErrors('nome')} ? 'inputError': ''"/>
+                            <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                                 th:if="${#fields.hasErrors('nome')}">
+                                <span th:errors="*{nome}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <!-- Lista Permissões -->
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="permissao">Permissões:</label><br/>
+                           <select name="permissao" id="permissao" multiple="multiple" th:field="*{permissoes}" style="height: 90px;">
+                               <option th:each="permissao : ${permissoes}" th:value="${permissao.id}"
+                               th:text="${permissao.descricao}">Permissão</option>
+                           </select>
+                            <div id="mensagemDeErro" th:if="${#fields.hasErrors('permissoes')}">
+                                <span th:errors="*{permissoes}"></span>
+                            </div>
+                            </div>
+                        </div>
+                    <br/>
+
+                    <a th:href="@{/grupos/listar}" class="btn btn-secondary btn-sm">Voltar</a>
+                    <!--BOTAO-->
+                    <!--/*@thymesVar id="editMode" type="java"*/-->
+                    <input type="submit" class="btn btn-primary btn-sm"
+                           th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+

@@ -4,16 +4,14 @@ import com.sttefani.ribeiro.exceptions.ValidationException;
 import com.sttefani.ribeiro.models.Perito;
 import com.sttefani.ribeiro.services.PeritoService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
-
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
 @Controller
 @RequestMapping("/peritos")
@@ -49,13 +47,35 @@ public class PeritoController {
 
     }
     @GetMapping("/listar")
-    public String listar(@PathParam("pesquisa") String pesquisa, ModelMap model) {
+    public String listar(@PathParam("pesquisa") String pesquisa, Model model) {
         if (pesquisa == null || pesquisa.isEmpty()) {
             model.addAttribute("peritos", peritoService.buscarTodos());
         } else {
             model.addAttribute("peritos", peritoService.findByNomeContainingIgnoreCase(pesquisa));
         }
+        ControllerHelper.setEditMode(model, false);
         return "perito/lista";
+    }
+    @GetMapping("/show/{id}")
+    public String show(@PathVariable("id") Long id, Model model) {
+        try {
+            model.addAttribute("perito", peritoService.buscarPorId(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ControllerHelper.setEditMode(model, false);
+        return "perito/show";
+    }
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
+        peritoService.excluir(id);
+        attr.addFlashAttribute("success", "Perito excluído com sucesso.");
+        return "redirect:/peritos/listar";
+    }
+
+    @ModelAttribute ("peritos")
+    public List<Perito> listaDePeritos() {
+        return peritoService.buscarTodos();
     }
 
 }

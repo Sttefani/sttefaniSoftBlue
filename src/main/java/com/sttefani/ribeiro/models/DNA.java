@@ -32,7 +32,7 @@ public class DNA implements Serializable {
     @NotBlank(message = "O nome é obrigatório!")
     private String nome;
 
-    @Column(nullable = true, length = 70)
+    @Column(length = 70)
     private String nomePai;
 
     @Column(nullable = false, length = 70)

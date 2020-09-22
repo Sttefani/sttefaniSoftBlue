@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface PeritoRepository extends JpaRepository<Perito, Long> {
 
-    public Perito findByNome(String nome);
+     Perito findByNome(String nome);
 
-   public  List<Perito> findByNomeIgnoreCase(String nome);
+     List<Perito> findByNomeIgnoreCase(String nome);
 }

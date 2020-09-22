@@ -8,8 +8,37 @@
 <body>
 <div layout:fragment="content">
 
-    <h1>Mostrar perito</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><strong>Cadastro de perito</strong></li>
+        </ol>
+    </nav>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="btn btn-success my-2 my-sm-0" th:href="@{/peritos/listar}">Listar peritos</a>
+    </nav>
 
+    <hr/>
+
+    <div class="container" id="cadastro">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <tbody>
+                <tr>
+                    <td class="td-adireita"><strong>Código:</strong></td>
+                    <!--/*@thymesVar id="id" type=""*/-->
+                    <td th:text="${perito.id}"></td>
+                </tr>
+                <tr>
+                    <td class="td-adireita"><strong>Nome:</strong></td>
+                    <td th:text="${perito.nome}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <a th:href="@{/peritos/listar}" class="btn btn-secondary btn-sm">Voltar</a>
+
+    </div>
+</div>
 </div>
 </body>
 

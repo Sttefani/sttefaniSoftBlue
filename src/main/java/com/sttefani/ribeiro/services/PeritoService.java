@@ -6,6 +6,7 @@ import com.sttefani.ribeiro.repositories.PeritoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PeritoService {
@@ -46,5 +47,13 @@ public class PeritoService {
 
     public List<Perito> findByNomeContainingIgnoreCase(String nome) {
         return peritoRepository.findByNomeIgnoreCase(nome);
+    }
+
+    public Optional<Perito> buscarPorId(Long id) {
+       return peritoRepository.findById(id);
+    }
+
+    public void excluir(Long id) {
+        peritoRepository.deleteById(id);
     }
 }
