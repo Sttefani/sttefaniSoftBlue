@@ -4,9 +4,11 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,8 +37,8 @@ public class OrdemServico implements Serializable {
     private Perito perito;
 
     @Column(nullable = false, columnDefinition = "datetime")
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataDaOrdemDeServico;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime dataDaOrdemDeServico = LocalDateTime.now();
 
     @Column(nullable = false)
     @NotBlank(message = "O prazo é obrigatório!")
@@ -47,18 +49,25 @@ public class OrdemServico implements Serializable {
     private Integer quantidadeDeReiteracoes;
 
     @Column(nullable = false, columnDefinition = "datetime")
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataDoVencimento;
 
     @Column(nullable = false, columnDefinition = "datetime")
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataDoRecebimentoDaOrdemDeServico;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime dataDoRecebimentoDaOrdemDeServico = LocalDateTime.now();
+
+    @Column(nullable = false, columnDefinition = "datetime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime dataDaBaixa;
 
     @ManyToOne
     @JoinColumn(name = "ocorrencia_id", nullable = false)
     private Ocorrencia ocorrencia;
 
+    @Size(max=100)
     private String uploadRequisicao;
+
+    private transient MultipartFile uploadRequisicaoFile;
 
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")

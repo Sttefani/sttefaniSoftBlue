@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+        layout:decorate="~{layout/Layout}" lang="pt-br">
+<head>
+    <title>Golias</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="aw-layout-content row-cols-lg-1 js-content" layout:fragment="conteudo">
+            <nav aria-label="bg-dark">
+                <ol class="navbar navbar-dark bg-dark">
+                    <li style="color: #FFFFFF" class="breadcrumb-item active" aria-current="page"><strong>Cadastro de
+                        Ordem de Serviço</strong></li>
+                </ol>
+            </nav>
+        </div>
+        <nav class="breadcrumb">
+            <a class="btn btn-success my-2 my-sm-0" th:href="@{/ordemServicos/listar}">Lista de Ordens de Serviço</a>
+        </nav>
+
+        <hr/>
+        <br />
+
+        <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+        <div class="alert alert-success" role="alert" id="mensagemDeSucesso" th:if="${msg != null}">
+            <span th:text="${msg}"></span>
+        </div>
+        <!-- FORMULÁRIO -->
+        <form method="post" th:action="${!editMode} ? @{/ordemServicos/save} : @{/ordemServicos/alterar}"
+              th:object="${ordemServico}">
+            <input type="hidden" th:field="*{id}"/>
+            <fieldset>
+                <!-- CAMPO USUARIO -->
+                <div class="form-row">
+                    <div class="col-sm-3 mb-5">
+                        <label for="grupo">Usuario</label> <select id="grupo" class="form-control"
+                                                                   th:field="*{usuario}"
+                                                                   th:classappend="${#fields.hasErrors('usuario')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                             th:if="${#fields.hasErrors('usuario')}">
+                            <span th:errors="*{usuario}"></span>
+                        </div>
+                        th:field="*{usuario}">
+                        <option value="">Selecione</option>
+                        <option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+                                th:text=${usuario.nome}>Usuário
+                        </option>
+                        </select>
+                    </div>
+
+                    <!-- CAMPO PERITO -->
+                    <div class="col-sm-3 mb-5">
+                        <label for="grupo">Perito</label> <select id="grupo" class="form-control"
+                                                                  th:field="*{perito}"
+                                                                  th:classappend="${#fields.hasErrors('perito')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                             th:if="${#fields.hasErrors('perito')}">
+                            <span th:errors="*{perito}"></span>
+                        </div>
+                        >
+                        <option value="">Selecione</option>
+                        <option th:each="perito : ${peritos}" th:value="${perito.id}"
+                                th:text=${perito.nome}>Perito
+                        </option>
+                        </select>
+                    </div>
+                    <!-- DATA DA EMISSAO -->
+                    <div class="col">
+                        <label for="dataEmissao">Data da Emissão</label> <input
+                            type="datetime-local" class="form-control" id="dataEmissao"
+                            th:field="*{{dataDaOrdemDeServico}}" th:readonly=true
+                            th:classappend="${#fields.hasErrors('dataDaOrdemDeServico')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                             th:if="${#fields.hasErrors('dataDaOrdemDeServico')}">
+                            <span th:errors="*{usuario}"></span>
+                        </div>
+                    </div>
+                    <!-- DIAS DE PRAZO -->
+                    <div class="col">
+                        <label for="prazoEmDias">Dias de Prazo</label>
+                        <input type="text" class="form-control" id="prazoEmDias" th:field="*{prazoEmDias}"
+                               th:classappend="${#fields.hasErrors('prazoEmDias')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                             th:if="${#fields.hasErrors('prazoEmDias')}">
+                            <span th:errors="*{prazoEmDias}"></span>
+                            onkeydown="return isNumberKey(event);"/>
+                        </div>
+                    </div>
+                    <!-- DATA DO VENCIMENTO -->
+                    <div class="col">
+                        <label for="dataDoVencimento">Data do Vencimento da OS</label> <input
+                            type="datetime-local" class="form-control" id="dataDoVencimento"
+                            th:field="*{{dataDoVencimento}}"
+                            th:classappend="${#fields.hasErrors('dataDoVencimento')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro" th:readonly=true
+                             th:if="${#fields.hasErrors('dataDoVencimento')}">
+                            <span th:errors="*{dataDoVencimento}"></span>
+                        </div>
+                    </div>
+                    <!-- DATA DO RECEBIMENTO DA ORDEM DE SERVIÇO -->
+                    <div class="col">
+                        <label for="dataDoRecebimentoDaOrdemDeServico">Data do Recebimento da OS</label> <input
+                            type="datetime-local" class="form-control" id="dataDoRecebimentoDaOrdemDeServico"
+                            th:field="*{{dataDoRecebimentoDaOrdemDeServico}}" th:readonly=true>
+                    </div>
+                    <!-- NUMERO DE REITERAÇOES -->
+                    <div class="col">
+                        <label for="quantidadeDeReiteracoes">Reiterações</label>
+                        <input type="text" class="form-control" id="quantidadeDeReiteracoes"
+                               th:field="*{quantidadeDeReiteracoes}"
+                               th:classappend="${#fields.hasErrors('quantidadeDeReiteracoes')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro" th:readonly=true
+                             th:if="${#fields.hasErrors('quantidadeDeReiteracoes')}">
+                            <span th:errors="*{quantidadeDeReiteracoes}"></span>
+                        </div>
+                    </div>
+                    <!-- DATA DA BAIXA DA OS -->
+                    <div class="col">
+                        <label for="dataDaBaixa">Data da Baixa da OS</label> <input
+                            type="datetime-local" class="form-control" id="dataDaBaixa"
+                            th:field="*{{dataDaBaixa}}">
+                    </div>
+                    <!-- OCORRENCIA REFERIDA -->
+                    <div class="col">
+                        <label for="ocorrencia">Ocorrência</label>
+                        <select id="ocorrencia" class="form-control" th:field="*{ocorrencia}"
+                                th:classappend="${#fields.hasErrors('ocorrencia')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                             th:if="${#fields.hasErrors('ocorrencia')}">
+                            <span th:errors="*{ocorrencia}"></span>
+                        </div>
+                        >
+                        <option value="">Selecione</option>
+                        <!--/*@thymesVar id="ocorrencia" type=""*/-->
+                        <!--/*@thymesVar id="ocorrencias" type=""*/-->
+                        <option th:each="ocorrencia : ${ocorrencias}"
+                                th:value="${ocorrencia.id}" th:text=${ocorrencia.id}>Ocorrência
+                        </option>
+                        </select>
+                    </div>
+                </div>
+                <!-- NOTAS GERAIS -->
+                <div class="container">
+                    <div class="col">
+                        <label for="notasGerais">Notas Gerais</label>
+                        <textarea id="notasGerais" name="notasGerais"
+                                  th:field="*{notasGerais}"
+                                  th:classappend="${#fields.hasErrors('notasGerais')} ? 'inputError': ''"/>
+                        <div class="alert alert-danger" role="alert" id="mensagemDeErro"
+                             th:if="${#fields.hasErrors('notasGerais')}">
+                            <span th:errors="*{notasGerais}"></span> ></textarea>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="container">
+                            <!-- UPLOAD REQUISICAO -->
+                            <div class="col-sm-3 mb-5">
+                                <label>Upload da Requisição</label>
+                                <form method="post" th:action="@{/upload}"
+                                      enctype="multipart/form-data" id="uploadRequisicao">
+                                    <div class="form-group" th:field="*{uploadRequisicao}">
+                                        <input type="file" name="file" class="form-control-file">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!--BOTAO-->
+                        <!--/*@thymesVar id="editMode" type="java"*/-->
+                            <div class="alert-success" style="justify-content: flex-end">
+                                <input type="submit" class="btn btn-primary"
+                                       th:value="${!editMode} ? 'Cadastrar' : 'Alterar'">
+                            </div>
+                        </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+
+</html>
+
