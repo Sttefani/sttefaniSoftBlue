@@ -7,6 +7,7 @@ import com.sttefani.ribeiro.models.Usuario;
 import com.sttefani.ribeiro.repositories.GrupoRepository;
 import com.sttefani.ribeiro.services.GrupoService;
 import com.sttefani.ribeiro.services.UsuarioService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -65,16 +66,18 @@ public class UsuarioController {
         return "usuario/lista";
     }
     @GetMapping("/show/{id}")
+    @PreAuthorize("hasRole({'ADMINISTRADOR', 'GERENTE'})")
     public String show(@PathVariable("id") Long id, Model model) {
         try {
             model.addAttribute("usuario", usuarioService.buscarPorId(id));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ControllerHelper.setEditMode(model, false);
+        ControllerHelper.setEditMode(model, true);
         return "usuario/show";
     }
     @GetMapping("/excluir/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         usuarioService.excluir(id);
         attr.addFlashAttribute("success", "Usuário excluído com sucesso.");

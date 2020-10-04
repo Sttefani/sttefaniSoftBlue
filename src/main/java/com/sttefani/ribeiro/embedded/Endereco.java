@@ -1,12 +1,13 @@
 package com.sttefani.ribeiro.embedded;
 
-import com.sttefani.ribeiro.enums.Cidade;
-import lombok.Data;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Pattern;
+
+import com.sttefani.ribeiro.enums.Cidade;
+
+import lombok.Data;
 
 @Embeddable
 @Data

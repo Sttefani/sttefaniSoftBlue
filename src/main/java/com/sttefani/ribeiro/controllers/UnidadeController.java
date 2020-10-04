@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("unidades")
 public class UnidadeController {
 
-    private final UnidadeService unidadeService;
-
     public UnidadeController(UnidadeService unidadeService) {
-        this.unidadeService = unidadeService;
     }
 }

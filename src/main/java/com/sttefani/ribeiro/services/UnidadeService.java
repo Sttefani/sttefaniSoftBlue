@@ -6,9 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UnidadeService {
 
-    private final UnidadeRepository unidadeRepository;
-
     public UnidadeService(UnidadeRepository unidadeRepository) {
-        this.unidadeRepository = unidadeRepository;
     }
 }

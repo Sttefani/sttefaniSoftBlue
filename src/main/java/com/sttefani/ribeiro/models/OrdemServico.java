@@ -22,7 +22,12 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrdemServico implements Serializable {
 
-    @EqualsAndHashCode.Include
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -54,7 +59,7 @@ public class OrdemServico implements Serializable {
 
     @Column(nullable = false, columnDefinition = "datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime dataDoRecebimentoDaOrdemDeServico = LocalDateTime.now();
+    private LocalDateTime dataDoRecebimentoDaOrdemDeServico;
 
     @Column(nullable = false, columnDefinition = "datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

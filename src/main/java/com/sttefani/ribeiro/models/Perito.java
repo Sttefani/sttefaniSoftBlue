@@ -18,9 +18,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Perito implements Serializable {
+public class Perito implements Serializable   {
 
-    @EqualsAndHashCode.Include
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,13 +43,13 @@ public class Perito implements Serializable {
     private LocalDateTime dataAtualizacao;
     @OneToMany(mappedBy = "perito")
 
-    private List<DNA> dna;
+    private List<Dna> dna;
 
-    public List<DNA> getDna() {
+    public List<Dna> getDna() {
         return dna;
     }
 
-    public void setDna(List<DNA> dna) {
+    public void setDna(List<Dna> dna) {
         this.dna = dna;
     }
 

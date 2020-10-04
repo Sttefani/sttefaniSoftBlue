@@ -3,6 +3,7 @@ package com.sttefani.ribeiro.controllers;
 import com.sttefani.ribeiro.exceptions.ValidationException;
 import com.sttefani.ribeiro.models.Perito;
 import com.sttefani.ribeiro.services.PeritoService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -57,16 +58,18 @@ public class PeritoController {
         return "perito/lista";
     }
     @GetMapping("/show/{id}")
+    @PreAuthorize("hasRole({'ADMINISTRADOR', 'GERENTE'})")
     public String show(@PathVariable("id") Long id, Model model) {
         try {
             model.addAttribute("perito", peritoService.buscarPorId(id));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ControllerHelper.setEditMode(model, false);
+        ControllerHelper.setEditMode(model, true);
         return "perito/show";
     }
     @GetMapping("/excluir/{id}")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public String excluir(@PathVariable("id") Long id, RedirectAttributes attr) {
         peritoService.excluir(id);
         attr.addFlashAttribute("success", "Perito excluído com sucesso.");

@@ -10,7 +10,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><strong>Listagem de peritos</strong></li>
+            <li class="breadcrumb-item active" aria-current="page"><strong>Listagem de peritos</strong>
+            </li>
+
         </ol>
     </nav>
     <nav class="navbar navbar-dark bg-dark">
@@ -20,6 +22,12 @@
                    aria-label="Search">
             <button class="btn btn-success my-2 my-sm-0" type="submit">Buscar</button>
         </form>
+        <li form th:action="@{/logout}" method="post" class="form-inline mt-2 mt-md-0">
+            <div class="btn-danger">
+                <button style="color: #FFFFFF" type="submit" class="dropdown-item">Sair do Sistema</button>
+            </div>
+            </form>
+        </li>
     </nav>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">

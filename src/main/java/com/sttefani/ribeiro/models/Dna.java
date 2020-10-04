@@ -21,9 +21,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class DNA implements Serializable {
+public class Dna implements Serializable {
 
-    @EqualsAndHashCode.Include
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

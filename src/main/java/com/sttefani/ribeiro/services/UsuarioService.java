@@ -24,7 +24,7 @@ public class UsuarioService {
             throw new ValidationException("Já existe um usuario cadastrado com esse email ou cpf");
         }
         if (usuario.getId() != null){
-            Usuario usuarioDB = usuarioRepository.findById(usuario.getId()).orElseThrow();
+            usuarioRepository.findById(usuario.getId()).orElseThrow();
             usuario.setSenha(usuario.getSenha());
 
         }else {

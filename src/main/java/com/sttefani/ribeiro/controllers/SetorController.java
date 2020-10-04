@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("setores")
 public class SetorController {
 
-    private final SetorService setorService;
+    @SuppressWarnings("unused")
+	private final SetorService setorService;
 
 
     public SetorController(SetorService setorService) {

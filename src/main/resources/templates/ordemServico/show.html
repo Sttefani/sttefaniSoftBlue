@@ -10,18 +10,18 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page"><strong>Cadastro de perito</strong>
+            <li class="breadcrumb-item active" aria-current="page"><strong>Cadastro de OS</strong>
             </li>
             <li form th:action="@{/logout}" method="post" class="form-inline mt-2 mt-md-0">
                 <div class="btn-danger">
                     <button style="color: #FFFFFF" type="submit" class="dropdown-item">Sair do Sistema</button>
                 </div>
-                </form>
+                </form>>
             </li>
         </ol>
     </nav>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="btn btn-success my-2 my-sm-0" th:href="@{/peritos/listar}">Listar peritos</a>
+        <a class="btn btn-success my-2 my-sm-0" th:href="@{/ordemServicos/listar}">Listar Ordens de Serviço</a>
     </nav>
 
     <hr/>
@@ -32,17 +32,13 @@
                 <tbody>
                 <tr>
                     <td class="td-adireita"><strong>Código:</strong></td>
-                    <!--/*@thymesVar id="id" type=""*/-->
-                    <td th:text="${perito.id}"></td>
-                </tr>
-                <tr>
-                    <td class="td-adireita"><strong>Nome:</strong></td>
-                    <td th:text="${perito.nome}"></td>
+                    <!--/*@thymesVar id="id" type="id"*/-->
+                    <td th:text="${ordemServico.id}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <a th:href="@{/peritos/listar}" class="btn btn-secondary btn-sm">Voltar</a>
+        <a th:href="@{/ordemServicos/listar}" class="btn btn-secondary btn-sm">Voltar</a>
 
     </div>
 </div>

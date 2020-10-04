@@ -13,7 +13,14 @@
         <div class="aw-layout-content row-cols-lg-1 js-content" layout:fragment="conteudo">
             <nav aria-label="bg-dark">
                 <ol class="navbar navbar-dark bg-dark">
-                    <li style="color: #FFFFFF" class="breadcrumb-item active" aria-current="page"><strong>Cadastro de Perito</strong></li>
+                    <li style="color: #FFFFFF" class="breadcrumb-item active" aria-current="page"><strong>Cadastro de Perito</strong>
+                    </li>
+                    <li form th:action="@{/logout}" method="post" class="form-inline mt-2 mt-md-0">
+                        <div class="btn-danger">
+                            <button style="color: #FFFFFF" type="submit" class="dropdown-item">Sair do Sistema</button>
+                        </div>
+                        </form>>
+                    </li>
                 </ol>
             </nav>
         </div>

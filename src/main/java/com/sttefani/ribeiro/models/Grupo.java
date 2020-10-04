@@ -16,7 +16,12 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Grupo implements Serializable {
 
-    @EqualsAndHashCode.Include
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
