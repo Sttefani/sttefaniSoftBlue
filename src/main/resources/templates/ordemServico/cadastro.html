@@ -114,7 +114,8 @@
                         <div class="col-md-3">
                             <label for="dataDoVencimento">Data do Vencimento da OS</label> <input
                                 type="datetime-local" class="form-control" id="dataDoVencimento"
-                                th:field="*{{dataDoVencimento}}" th:readonly=true>
+                                th:field="*{{dataDoVencimento}}" th:readonly=true
+                        th:onchange="dataDoVencimento.plusDays(prazoEmDias)">
 
                         </div>
                         <!-- DATA DO RECEBIMENTO DA ORDEM DE SERVIÇO -->
@@ -189,7 +190,7 @@
     </div>
 </div>
 </div>
-<
+
 </body>
 
 </html>
